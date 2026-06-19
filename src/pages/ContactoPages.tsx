@@ -1,5 +1,8 @@
 // Pagina principal
 
+import { ContactTable } from "../componets/ContactTable"
+import { Header } from "../componets/Header"
+import { SearchBar } from "../componets/SearchBar"
 import { Sidebar } from "../componets/Sidebar"
 
 
@@ -9,7 +12,9 @@ export const ContactoPages = () => {
         <Sidebar />
 
         <main className="flex-1 p-8">
-            <h1 className="text-4xl font-bold">Contactos</h1>
+            <Header/>
+            <SearchBar/>
+            <ContactTable/>
         </main>
     </div>
   )
