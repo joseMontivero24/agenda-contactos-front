@@ -1,7 +1,31 @@
+import { useEffect, useState } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { contactos } from '../data/datosDb';
+
+import type { Contacto } from "../models/Contacto";
+import { obtenerContactos } from '../services/contactoService';
+
 
 export const ContactTable = () => {
+
+    const [contactos, setContactos] = useState <Contacto[]>([]);
+    
+      const cargarContactos = async () => {
+
+    try {
+
+      const datos = await obtenerContactos();
+      console.log(datos)
+      setContactos(datos);
+
+    } catch(error) {
+      console.error(error);
+    }
+
+  };
+    useEffect(() => {
+      cargarContactos();
+    }, [])
+    
 
 
 
@@ -47,7 +71,7 @@ export const ContactTable = () => {
 
                             {/* Botones Delet-Edit */}
                             <td className='p-4'>
-                                <button className='bg-blue-100 text-blue-600 p-2 rounded-lg'>
+                                <button className='bg-blue-100 text-blue-600 p-2 rounded-lg m-2'>
                                     <FaEdit/>
                                 </button>
 
