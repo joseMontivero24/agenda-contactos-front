@@ -14,7 +14,6 @@ export const ContactTable = () => {
     try {
 
       const datos = await obtenerContactos();
-      console.log(datos)
       setContactos(datos);
 
     } catch(error) {
@@ -54,8 +53,12 @@ export const ContactTable = () => {
             {/* Aqui va la tabla dinamica */}
             <tbody>
                 {
-                    contactos.map((contacto) =>(
-                        <tr key={contacto.idContacto} className='border-b hover:bg-slate-50'>
+                    contactos.map((contacto, indice) =>(
+                        <tr key={indice} className='border-b hover:bg-slate-50'>
+                            
+                            <th className='p-4'>
+                                {contacto.idContacto}
+                            </th>
                             <td className='p-4'>
                                 {`${contacto.nombre} ${contacto.apellido}`}
                             </td>
