@@ -1,5 +1,5 @@
 export interface Contacto {
-    idContacto:number;
+    idContacto?:number;
     nombre:string;
     apellido:string;
     telefono:string;
