@@ -5,7 +5,7 @@ export const Sidebar = () => {
   
   return (
     
-    <aside className="w-64 bg-slate-900 text-white flex flex-col h-screen">
+    <aside className=" w-64 bg-slate-900 text-white flex flex-col h-screen sticky top-0">
         {/* Logo */}
         <div className="p-6 border-b border-slate-700">
           <div className="flex items-center gap-3">

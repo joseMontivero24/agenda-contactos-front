@@ -1,16 +1,14 @@
-import React, { useState } from "react"
+
 import { guardarContacto } from "../../services/contactoService";
 import Swal from "sweetalert2";
+import type { Contacto } from "../../models/Contacto";
 
-export const ContactForm = () => {
+type ContactFormProps = {
+    contacto: Contacto;
+    setContacto: React.Dispatch<React.SetStateAction<Contacto>>;
+}
 
-    const [contacto, setContacto] = useState({
-        nombre: "",
-        apellido: "",
-        telefono: "",
-        email: "",
-        direccion: ""
-    })
+export const ContactForm = ({contacto, setContacto}: ContactFormProps) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
