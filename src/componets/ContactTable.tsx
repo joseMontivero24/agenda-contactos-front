@@ -5,17 +5,30 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import type { Contacto } from "../models/Contacto";
-import {
-    obtenerContactos,
-    eliminarContacto
-} from "../services/contactoService";
+import { obtenerContactos, eliminarContacto } from "../services/contactoService";
 
-export const ContactTable = () => {
+
+type ContactTableProps = {
+    busqueda: string;
+
+}
+
+export const ContactTable = ({ busqueda }: ContactTableProps) => {
 
     const [contactos, setContactos] = useState<Contacto[]>([]);
     const [cargando, setCargando] = useState(true);
     const [eliminandoId, setEliminandoId] = useState<number | null>(null);
     const [error, setError] = useState("");
+
+    const contactosFiltrados = contactos.filter((contacto) => {
+        const texto = busqueda.trim().toLocaleLowerCase();
+        return (
+            contacto.nombre.toLocaleLowerCase().includes(texto) ||
+            contacto.apellido.toLocaleLowerCase().includes(texto) ||
+            contacto.telefono.toLocaleLowerCase().includes(texto) ||
+            contacto.email.toLocaleLowerCase().includes(texto)
+        )
+    })
 
     const navigate = useNavigate();
 
@@ -131,7 +144,7 @@ export const ContactTable = () => {
                 </thead>
 
                 <tbody>
-                    {contactos.map((contacto) => (
+                    {contactosFiltrados.map((contacto) => (
 
                         <tr
                             key={contacto.idContacto}
@@ -191,9 +204,11 @@ export const ContactTable = () => {
 
             </table>
 
-            {contactos.length === 0 && (
+            {contactosFiltrados.length === 0 && (
                 <p className="text-center text-gray-500 p-6">
-                    No hay contactos registrados.
+                    {contactos.length === 0
+                        ? "No hay contactos registrados."
+                        : "No se encontraron contactos con esa búsqueda."}
                 </p>
             )}
 
