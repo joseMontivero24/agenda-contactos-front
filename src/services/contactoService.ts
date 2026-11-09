@@ -41,4 +41,11 @@ export const actualizarContacto = async (
   return respuesta.data;
 };
 
+// Elimina un contacto mediante su ID
+export const eliminarContacto = async (
+  idContacto: number
+): Promise<void> => {
+  await axios.delete(`${API_URL}/${idContacto}`);
+};
+
 
