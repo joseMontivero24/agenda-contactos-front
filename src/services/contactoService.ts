@@ -27,3 +27,18 @@ export const guardarContacto = async(contacto: Contacto): Promise<Contacto> =>{
 }
 
 
+// Actualiza un contacto existente
+export const actualizarContacto = async (
+  idContacto: number,
+  contacto: Contacto
+): Promise<Contacto> => {
+
+  const respuesta = await axios.put<Contacto>(
+    `${API_URL}/${idContacto}`,
+    contacto
+  );
+
+  return respuesta.data;
+};
+
+
