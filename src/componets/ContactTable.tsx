@@ -10,25 +10,36 @@ import { obtenerContactos, eliminarContacto } from "../services/contactoService"
 
 type ContactTableProps = {
     busqueda: string;
+    orden: "asc" | "desc";
 
 }
 
-export const ContactTable = ({ busqueda }: ContactTableProps) => {
+export const ContactTable = ({ busqueda, orden }: ContactTableProps) => {
 
     const [contactos, setContactos] = useState<Contacto[]>([]);
     const [cargando, setCargando] = useState(true);
     const [eliminandoId, setEliminandoId] = useState<number | null>(null);
     const [error, setError] = useState("");
 
+     // Texto que escribe el usuario en el buscador
+    const texto = busqueda.trim().toLocaleLowerCase();
+
     const contactosFiltrados = contactos.filter((contacto) => {
-        const texto = busqueda.trim().toLocaleLowerCase();
         return (
             contacto.nombre.toLocaleLowerCase().includes(texto) ||
             contacto.apellido.toLocaleLowerCase().includes(texto) ||
             contacto.telefono.toLocaleLowerCase().includes(texto) ||
             contacto.email.toLocaleLowerCase().includes(texto)
-        )
+        );
     })
+        .sort((a, b) => {
+            if (orden === "asc") {
+                return a.nombre.localeCompare(b.nombre, "es");
+            }
+
+            return b.nombre.localeCompare(a.nombre, "es");
+        });
+
 
     const navigate = useNavigate();
 

@@ -10,6 +10,7 @@ import { SearchBar } from "../componets/SearchBar"
 export const ContactoPages = () => {
 
   const [busqueda, setBusqueda] = useState("");
+  const [orden, setOrden] = useState<"asc" | "desc">("asc");
 
   return (
     <div className="flex">
@@ -20,8 +21,13 @@ export const ContactoPages = () => {
             <SearchBar
               busqueda={busqueda}
               onBusquedaChange={setBusqueda}
+              orden={orden}
+              onOrdenChange={setOrden}
             />
-            <ContactTable busqueda={busqueda}/>
+            <ContactTable 
+              busqueda={busqueda}
+              orden={orden}
+            />
         </div>
     </div>
   )
